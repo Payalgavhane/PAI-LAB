@@ -1,0 +1,32 @@
+section .data
+    x db 1, 2, 3, 0
+
+section .bss
+    sum resb 2
+
+section .text
+    global _start
+
+_start:
+    mov ax, 4
+    mov bx, 0
+    mov cx, x
+
+t:
+    add bx, [cx]
+    add cx, 1
+    dec ax
+    jnz t
+
+    add bx, '0'
+    mov [sum], bx
+
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, sum
+    mov edx, 2
+    int 80h
+
+    mov eax, 1
+    mov ebx, 0
+    int 80h
